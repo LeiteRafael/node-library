@@ -35,11 +35,17 @@ module.exports = {
         const sessionLogin = request.session;
         const idfilme = request.query.idfilme;
         const idusuario = sessionLogin.user.id;
+        const date = new Date();
+        const dataAtual = date.toISOString().split("T")[0];
+        date.setDate(date.getDate() + 3); 
+        const dataEntrega = date.toISOString().split("T")[0];
         con.query(`Select * from filme where idfilme = ${idfilme} `,
             function (err, result_filme, fields) {
                 if (err) return response.json(err);
                 if (result_filme[0]['qtd_disponivel'] > 0) {
-                    con.query(`INSERT INTO aluguel (idfilme, idusuario, situacao) VALUES ("${idfilme}", "${idusuario}", 'Alugado')`,
+
+                    con.query(`INSERT INTO aluguel (idfilme, idusuario, situacao, datainicio, datefim) 
+                    VALUES ("${idfilme}", "${idusuario}", 'Alugado',"${dataAtual}","${dataEntrega}")`,
                         function (err, result_aluguel, fields) {
                             if (err) return response.json(err);
                             return response.json({ "filme alugado": result_filme[0]['titulo'] });
