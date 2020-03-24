@@ -12,6 +12,7 @@
 - Session para Login/Logoff
 - Bcrypt para senha do usuário 
 - Destructuring assignment (ES6 )
+- Trigger/Procedure para atualizar o estoque quando filme alugado/devolvido
 ## Rotas
 - ### Create User
 > |POST| localhost:5555/create
